@@ -1,0 +1,88 @@
+/*
+Given a 2D array, find the maximum sum rectangle in it. In other words find maximum sum over all rectangles in the matrix.
+Input
+First line contains 2 numbers n and m denoting number of rows and number of columns. Next n lines contain m space separated integers denoting elements of matrix nxm.
+Output
+Output a single integer, maximum sum rectangle.
+Constraints
+1<=n,m<=100
+Sample Input
+4 5
+1 2 -1 -4 -20
+-8 -3 4 2 1
+3 8 10 1 3
+-4 -1 1 7 -6
+Sample Output
+29
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int r,c;
+    cin>>r>>c;
+    int** arr=new int*[r];
+    for(int i=0;i<r;i++)
+    {
+        arr[i]=new int[c];
+    }
+    
+    for(int i=0;i<r;i++)
+    {
+        for(int j=0;j<c;j++)
+        {
+            cin>>arr[i][j];
+        }
+    }
+    int* sa=new int[r];
+    
+    
+    int meh=0,msf=INT_MIN,max=INT_MIN;
+    for(int i=0;i<c;i++)
+    {
+        for(int h=0;h<r;h++)
+        {
+            sa[h]=0;
+        }
+
+        for(int j=i;j<c;j++)
+        {
+            msf=INT_MIN;
+            meh=0;
+           for(int k=0;k<r;k++)
+            {
+                sa[k]+=arr[k][j];
+            }
+           for(int l=0;l<r;l++)
+            {
+               meh=meh+sa[l];
+               if(meh<sa[l])
+               {
+                    meh=sa[l];
+               }
+               if(msf<meh)
+               {
+                    msf=meh;
+            
+               }
+            }
+               if(max<msf)
+               {
+                   max=msf;
+               }
+        
+          }
+    }
+    
+    cout<<max;
+    
+    delete [] sa;
+    
+    for(int g=0;g<r;g++)
+    {
+        delete[] arr[g];
+    }
+    return 0;
+}
